@@ -179,8 +179,8 @@ We now demonstrate the results of our algorithm on sintetic data in cuple of tes
 
 \begin{figure}[H]
 \centering
-\subfloat[normal noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{normal_f.png}}  \subfloat[uniform noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{uni_f.png}}\\
-\centering\subfloat[number of segment vs erorr]{\includegraphics[width=0.6\textwidth]{figure_1-3.png}}
+\subfloat[Normal noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{normal_f.png}}  \subfloat[Uniform noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{uni_f.png}}\\
+\centering\subfloat[Number of segment vs erorr]{\includegraphics[width=0.6\textwidth]{figure_1-3.png}}
 \caption{Figure 2a shows the division error as fanction of normal noise varians that added to the signal. For $(k,m)$-segmantation algorithim(blue) against threshold's(green). Figure 2b shows the same as 2a but for a uniform noise. Figure 2c shows the division error as fanction of the number of segments in the input signal $(k,m)$-segment(blue) against  thresholding(green).  }
 \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 \label{noise}
@@ -188,6 +188,16 @@ We now demonstrate the results of our algorithm on sintetic data in cuple of tes
 \subsection{segmantation of data}
 We first examine the behavior of the algorithm on synthetic data which provides us with
 easy ground-truth, to evaluate the quality of the algorithem.We generate synthetic test data by drawing a discrete $(k,m)$-segment $P$ whith $k=15$ and $m=2$, and then we add Gaussian and normal noise(one in eatch experament).
+
+
+\begin{figure}[H]
+\centering
+\subfloat[IR controler to IR resiver distance vs erorr]{\includegraphics[width=0.5\textwidth]{Experimental.png}}  \subfloat[IR controler to IR resiver distance vs erorr]{\includegraphics[width=0.5\textwidth]{ir2.png}}\\
+
+\caption{Figures 3a and 3b shows the resultes of the expermaente that discribe in subsection \ref{IR} .the graphs shows taht the incrising of the division error of the $(k,n)$-egmantation(blue) is slower  the incrising of the logic analizer(green) division error while we increse the distance between the IR controler and the IR resever ,for two diffrent key configurations .}
+\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
+\end{figure}
+\subsection{real life data}\label{IR}
 
 \medskip
 
