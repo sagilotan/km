@@ -1,9 +1,7 @@
-
-\documentclass[12pt]{llncs}
+\documentclass{vldb}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{amsfonts}
-\usepackage[final]{graphicx}
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{subfloat}
@@ -13,9 +11,53 @@
 \usetikzlibrary{datavisualization.formats.functions}
 
 \begin{document}
-\title{$(k,m)$-Segmentation Algorithm for Horizontal Lines}
-\author{Lotan, Sagi\inst{*} \and Feldman, Dan\inst{*} }
-\institute{*Robotic and big data lab,\\ University of haifa}
+
+\title{(k,m)-Segmentation Algorithm for \\Horizontal Lines}
+% ****************** AUTHORS **************************************
+
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{2} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+
+\author{
+
+\alignauthor Lawrence P. Leipuner\\
+       \affaddr{Brookhaven Laboratories}\\
+       \affaddr{Brookhaven National Lab}\\
+       \affaddr{P.O. Box 5000}\\
+       \email{lleipuner@researchlabs.org}
+% 5th. author
+\alignauthor Sean Fogarty\\
+       \affaddr{NASA Ames Research Center}\\
+       \affaddr{Moffett Field}\\
+       \affaddr{California 94035}\\
+       \email{fogartys@amesres.org}
+% 6th. author
+}
 \maketitle
 \begin{abstract}
    
@@ -44,7 +86,7 @@ $(ii)$ The content of the data includes at most $k$ segments ,from at most $m$ (
 matically; An example for this are scenes of the audience and the field in a soccer video, a "bits" of an Infra Red signal (as we show in Section \ref{Experimental Results}), etc. \\
 This motivates the following problem definition.
 
-
+\newdef{definition}{Definition}
 \begin{definition}[$(k,m)$-segment mean]
 A $set\ P\ in\ \mathbb{R}^{d+1} is\ a$ signal\\ 
 $if\ P = \lbrace(1, p_1),(2, p_2),...,(n, p_n)\rbrace\ where\ p_i\in\mathbb{R}^d$ 
@@ -67,10 +109,9 @@ where $\forall f_i : f_i' \in F,$ and $F$ is a group of lines from order $m$.
 this fanction $f$ maps every time $i\in \mathbb{R}$ to a point $f(i)$ in $\mathbb{R}^d$.
 \begin{figure}[H]
 
-    \includegraphics[width=\textwidth]{12.png}
+    \includegraphics[width=0.5\textwidth]{12.png}
       \caption{This figure is an exemple to the $(3,2)$-segment. the red dots are the input data and the lines are the segments when the blue is the low type and the grin is the high type. 
       }
-      \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
   \centering
 \end{figure}
 
@@ -106,7 +147,7 @@ For $ \alpha, \beta > 0$, an $(\alpha, \beta)-approximation$ for the $(k,m)-segm
 
 \end{definition}
 
-
+\newtheorem{theorem}{Theorem}
 \begin{theorem}[Bicriteria approximation~\cite{FL11}]
 Let $P=\lbrace(1, p_1),...,(k, p_k)\rbrace$. Then an $(\alpha,\beta)$-approximation for $P$ can be computed in $O(dn)$ time where $\alpha=..$ and $\beta=..$
 
@@ -159,7 +200,7 @@ and two vectors $p_1,p_2 \in \mathbb{R}^d$
 
 \end{algorithmic}
 \end{algorithm}\\
-
+\newtheorem{A}{Theorem}
 \begin{theorem}[solution cost]
 This algorithm that we present will give a $f'$ that 
 $cost(P,f')\leq (2+\varepsilon)*cost(P,f)$
@@ -170,7 +211,7 @@ $cost(P,f')\leq (2+\varepsilon)*cost(P,f)$
 \begin{proof}
 Without loss of generality
 if we lock on all of the dots on the segments that from the higher type .
-Let $p_{opt}$ be the men of the corresponding of all those points, Let $cost_{opt}$ be the averege distance to $p_{opt}$ and let $p_{s}$ be the closest point to $p_{opt}$.Then the distanse $\Delta(p_{opt},p_s)$ is smoler or equal to $cost_{opt}$ so for each point $p$ in the data: $\Delta(p,p_s)<$
+Let $p_{opt}$ be the men of the corresponding of all those points, Let $cost_{opt}$ be the averege distance to $p_{opt}$ and let $p_{s}$ be the closest point to $p_{opt}$.Then the distanse $\Delta(p_{opt},p_s)$ is smoler or equal to $cost_{opt}$ so from the triangle inequality for each point $p$ in the data: $\Delta(p,p_s)<2*cost_{opt}$ ($\Delta(p,p_{opt})+\Delta(p_{opt},p_s)$).
 
 \end{proof}
 
@@ -179,10 +220,10 @@ We now demonstrate the results of our algorithm on sintetic data in cuple of tes
 
 \begin{figure}[H]
 \centering
-\subfloat[Normal noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{normal_f.png}}  \subfloat[Uniform noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{uni_f.png}}\\
-\centering\subfloat[Number of segment vs erorr]{\includegraphics[width=0.6\textwidth]{figure_1-3.png}}
+\subfloat[Normal noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{normal_f.png}} \\
+\subfloat[Uniform noise varians vs erorr]{\includegraphics[width=0.5\textwidth]{uni_f.png}}\\
+\centering\subfloat[Number of segment vs erorr]{\includegraphics[width=0.5\textwidth]{figure_1-3.png}}
 \caption{Figure 2a shows the division error as fanction of normal noise varians that added to the signal. For $(k,m)$-segmantation algorithim(blue) against threshold's(green). Figure 2b shows the same as 2a but for a uniform noise. Figure 2c shows the division error as fanction of the number of segments in the input signal $(k,m)$-segment(blue) against  thresholding(green).  }
-\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 \label{noise}
 \end{figure}
 \subsection{segmantation of data}
@@ -192,13 +233,13 @@ easy ground-truth, to evaluate the quality of the algorithem.We generate synthet
 
 \begin{figure}[H]
 \centering
-\subfloat[IR controler to IR resiver distance vs erorr]{\includegraphics[width=0.5\textwidth]{Experimental.png}}  \subfloat[IR controler to IR resiver distance vs erorr]{\includegraphics[width=0.5\textwidth]{ir2.png}}\\
+\subfloat[IR controler to IR resiver distance vs erorr]{\includegraphics[width=0.5\textwidth]{Experimental.png}}  \\
+\subfloat[IR controler to IR resiver distance vs erorr]{\includegraphics[width=0.5\textwidth]{ir2.png}}\\
 
 \caption{Figures 3a and 3b shows the resultes of the expermaente that discribe in subsection \ref{IR} .the graphs shows taht the incrising of the division error($\mu sec$) of the $(k,m)$-egmantation(blue) is slower  the incrising of the logic analizer(green) division error while we increse the distance between the IR controler and the IR resever($cm$),for two diffrent key configurations .}
-\noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
 \end{figure}
 \subsection{real life data}\label{IR}
-
+We compare our algorithem agense Logic-analizer divice. We conect an IR reciver circal that plot anlog sinal to the Logic-analizer and then ww comper the Logic 
 \medskip
 
 \begin{thebibliography}{9}
