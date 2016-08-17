@@ -12,7 +12,7 @@
 
 \begin{document}
 
-\title{(k,m)-Segmentation Algorithm for \\Horizontal Lines}
+\title{$(k,m)$-Segmentation Algorithm for \\Horizontal Lines}
 
 \numberofauthors{2} 
 
@@ -20,12 +20,14 @@
 \alignauthor Lotan Sagi\\
        \affaddr{Robotic and Big Data Rab}\\
        \affaddr{Uoniversity of Haifa}\\
+       \affaddr{Haifa,Israel}\\
        \email{sagi.lotan@gmail.com}
 % 5th. author
 \alignauthor Dr. Feldman Dan\\
        \affaddr{Robotic and Big Data Rab}\\
        \affaddr{Uoniversity of Haifa}\\
-       \email{fogartys@amesres.org}
+       \affaddr{Haifa,Israel}\\
+       \email{dannyf.post@gmail.com}
 % 6th. author
 }
 \maketitle
@@ -33,7 +35,7 @@
    
  Division of an electrical signals into high and low, cuts a soccer video into filed of game and audiences shots... all of those are a thresholding problems. But when the noise get stronger the regular thresholding algorithm get weaker . In the km-segment mean problem we need to divide an input signal into a k-piecewise function when each piece is one of set M in size m.
 
-we aproximate the solution for a constrained version of $(k,m)$-segmentation problem when the lines are horizontal . We can do that by trying every m size set in the input data as M and compute the k-segment of the signal while limit the segment to be from M set. then choose the one with minimum cost. What give us $cost<4cost_opt$ by O(n chose m*…) time using corset tocompute k-segment (fl14 ).
+we aproximate the solution for a constrained version of $(k,m)$-segmentation problem when the lines are horizontal . We can do that by trying every m size set in the input data as M and compute the k-segment of the signal while limit the segment to be from M set. then choose the one with minimum cost. What give us $cost<4cost_{opt}$ by O(n chose m*…) time using corset tocompute k-segment (fl14 ).
 
 we show how our algorithm can divides better than a regular threshold and keep divide when we increase the noises even after threshold totally failed.
 \end{abstract}
@@ -97,8 +99,8 @@ where $\parallel\cdot\parallel$ denotes the $Euclidean$ distance.
 The function $f$ is a $(k,M)$-segment mean of $P$ if it minimizes $cost(P,f)$ and conducts the conditions above.
 \end{definition}
 
-In this paper we interest in a constrained version of $(k,2)$-segmantation
-($(k,m)$-segmantation for $m=2$) problem when the lines are horizontal.
+In this paper we interest in a constrained version of $(k,m)$-segmantation problem when the lines are horizontal.
+\subsection{Related Work}
 
 \section{The algorithm}
 If we lock at the problem we can see that $(i)$ if we had the corct set $F$
@@ -125,24 +127,22 @@ Let $P=\lbrace(1, p_1),...,(k, p_k)\rbrace$. Then an $(\alpha,\beta)$-approximat
 
 For this solution to the km-segment problem we use 
 $i)$ Bicriteria.
-$ii)$ BalancedPartition.
+$ii)$\textsc{ BalancedPartition.}
 As described in Feldman's 2014.
 
 
 \begin{algorithm}
 \begin{algorithmic}
 \STATE \textbf{Input:} A set $P = \lbrace(1,p_1),...,(n,p_n)\rbrace$ in $ \mathbb{R}^{d+1}$
-and integer $k\geq1$
-\STATE \textbf{Output:} A $2$-approximation to the $(k,m)$-segment mean of $P$\\ when $m=2$.
+and paer of integers $k\geq m\geq1$
+\STATE \textbf{Output:} A set F of centers to the  $2$-approximation of the $(k,m)$-horizontal segment of $P$.
  
-Set $a\gets \infty$
-\FOR {$\lbrace p_i,p_j\in P\vert 1\leq i\leq j\leq n  \rbrace$} 
+\FOR {$\lbrace F \subset P\   \mid\  \vert F\vert = m \rbrace$} 
 
 \STATE 
-Set $f \gets Bicriteria(P,k,p_i,p_j)$ \\
-$coreset = BalancedPartition(P,\varepsilon,cost(f),p_i,p_j)$\\
-$temp=K$-$Segmentation(coreset,k,p_i,p_j)$\\
-\STATE $best\_fit = $ Compute $temp$ such that $cost(P,temp)$ is minimized.
+Set $f \gets Bicriteria(P,k,F)$ \\
+$coreset \gets $\textsc{BalancedPartition}$(P,\varepsilon,cost(f),F)$\\
+\STATE $best\_fit \gets $ Compute $F$ such that \\$cost(P,$\textsc{$K$-Segmentation$(coreset,k,F)$}$)$ is minimized.
 
 \ENDFOR
 
@@ -150,26 +150,25 @@ $temp=K$-$Segmentation(coreset,k,p_i,p_j)$\\
 
 
 
-\caption{km - segmentation main}
+\caption{\textsc{$2$-Aproximation to $(k,m)$ - Segmentation Horizontal}}
 
 \end{algorithmic}
 \end{algorithm}
-$g_i$ is the line $y= p_i$
 \begin{algorithm}
 \begin{algorithmic}
-\STATE Input: A set $P\subseteq \mathbb{R}^{d+1}$
+\STATE \textbf{Input:} A set $P\subseteq \mathbb{R}^{d+1}$
 and two vectors $p_1,p_2 \in \mathbb{R}^d$
-\STATE Output: An $2$-approximation to the $(k,m)$-segment mean of P when $m=2$.
+\STATE \textbf{Output:} An $2$-approximation to the $(k,m)$-segment mean of P when $m=2$.
 \IF {$cost(g_1,P) < cost(g_2,P))$}
 \RETURN $g_1$
 \ELSE
 \RETURN $g_2$
 \ENDIF 
 
-\caption{alternative for 1 - segment main}
+\caption{\textsc{Alternative for $1$-Segment Main}}
 
 \end{algorithmic}
-\end{algorithm}\\
+\end{algorithm}
 \newtheorem{A}{Theorem}
 \begin{theorem}[solution cost]
 This algorithm that we present will give a $f'$ that 
@@ -184,6 +183,35 @@ if we lock on all of the dots on the segments that from the higher type .
 Let $p_{opt}$ be the men of the corresponding of all those points, Let $cost_{opt}$ be the averege distance to $p_{opt}$ and let $p_{s}$ be the closest point to $p_{opt}$.Then the distanse $\Delta(p_{opt},p_s)$ is smoler or equal to $cost_{opt}$ so from the triangle inequality for each point $p$ in the data: $\Delta(p,p_s)<2*cost_{opt}$ ($\Delta(p,p_{opt})+\Delta(p_{opt},p_s)$).
 
 \end{proof}
+\subsection{$(1+\varepsilon)$-Aproximation}
+For the next part of the algorithem 
+\begin{algorithm}
+\begin{algorithmic}
+\STATE \textbf{Input:} A set $P = \lbrace(1,p_1),...,(n,p_n)\rbrace$ in $ \mathbb{R}^{d+1}$
+, paer of integers $k\geq m\geq1$
+and a set $F$ in size $m$.
+\STATE \textbf{Output:}  $(1+\varepsilon)$-approximation to the $(k,m)$-horizontal segment of $P$.
+ 
+\FOR {$\lbrace F'   \mid\ \forall f'_i,f'_j \in F':$\\
+$\ \ \ \ \ \ \ \ \ \ \ ( \exists f_i \in F: f'_i = f_i+  d )\wedge(  f_i=f_j\Leftrightarrow i = j) \rbrace$} 
+
+\STATE 
+Set $f \gets Bicriteria(P,k,F')$ \\
+$coreset \gets $\textsc{BalancedPartition}$(P,\varepsilon,cost(f),F')$\\
+$f \gets $ \textsc{$K$-Segmentation$(coreset,k,F')$}
+\STATE $best\_fit \gets $ Compute $f$ such that $cost(P,f)$ is minimized.
+
+\ENDFOR
+
+\RETURN $best\_fit$
+
+
+
+\caption{\textsc{$(1+\varepsilon)$-Aproximation to $(k,m)$ - Segmentation Horizontal}}
+
+\end{algorithmic}
+\end{algorithm}
+
 
 \section{Experimental Results} \label{Experimental Results}
 We now demonstrate the results of our algorithm on sintetic data in cuple of tests. We compare our algorithms against regular thresholding algorithem. we also show our algorithim preformens on a real life data token from an ir remote controlers.
@@ -200,6 +228,7 @@ We now demonstrate the results of our algorithm on sintetic data in cuple of tes
 We first examine the behavior of the algorithm on synthetic data which provides us with
 easy ground-truth, to evaluate the quality of the algorithem.We generate synthetic test data by drawing a discrete $(k,m)$-segment $P$ whith $k=15$ and $m=2$, and then we add Gaussian and normal noise(one in eatch experament).
 
+\textbf{Resistance}
 
 \begin{figure}[H]
 \centering
