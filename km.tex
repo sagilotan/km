@@ -118,13 +118,38 @@ For $ \alpha, \beta > 0$, an $(\alpha, \beta)-approximation$ for the $(k,m)-segm
  of $P$ is a $(k · β)-segment$ $ g$ such that $cost(P, g) \leq \alpha \ast cost(P, f ∗).$
 
 \end{definition}
+\begin{definition}[$(\alpha,m)$-centroid-set]
+For $ \alpha > 0$ ,integer $m>0$ and set $P$, an $\alpha$-$centroid$-$set$ of $P$ is a set of points  
 
+\end{definition}
 \newtheorem{theorem}{Theorem}
 \begin{theorem}[Bicriteria approximation~\cite{FL11}]
 Let $P=\lbrace(1, p_1),...,(k, p_k)\rbrace$. Then an $(\alpha,\beta)$-approximation for $P$ can be computed in $O(dn)$ time where $\alpha=..$ and $\beta=..$
 
 \end{theorem}
+\begin{algorithm}
+\begin{algorithmic}
+\STATE \textbf{Input:} A set $P = \lbrace(1,p_1),...,(n,p_n)\rbrace$ in $ \mathbb{R}^{d+1}$
+, paer of integers $k\geq m\geq1$
+and a set $F$ in size $m$.
+\STATE \textbf{Output:}  $(1+\varepsilon)$-approximation to the $(k,m)$-horizontal segment of $P$.
 
+Set $G\gets \varepsilon$-$centroidset(P)$
+\FOR { evrey subset $g$ of $G$} 
+\STATE 
+$f \gets $ \textsc{$K$-Segmentation$(P,k,g)$}
+\STATE $best\_fit \gets $ Compute $f$ such that $cost(P,f)$ is minimized.
+
+\ENDFOR
+
+\RETURN $best\_fit$
+
+
+
+\caption{\textsc{$(1+\varepsilon)$-Aproximation to $(k,m)$ - Segmentation Horizontal}}
+
+\end{algorithmic}
+\end{algorithm}
 
 
 \begin{algorithm}
@@ -181,32 +206,7 @@ Let $p_{opt}$ be the men of the corresponding of all those points, Let $cost_{op
 \end{proof}
 \subsection{$(1+\varepsilon)$-Aproximation}
 For the next part of the algorithem 
-\begin{algorithm}
-\begin{algorithmic}
-\STATE \textbf{Input:} A set $P = \lbrace(1,p_1),...,(n,p_n)\rbrace$ in $ \mathbb{R}^{d+1}$
-, paer of integers $k\geq m\geq1$
-and a set $F$ in size $m$.
-\STATE \textbf{Output:}  $(1+\varepsilon)$-approximation to the $(k,m)$-horizontal segment of $P$.
- 
-\FOR {$\lbrace F'   \mid\ \forall f'_i,f'_j \in F':$\\
-$\ \ \ \ \ \ \ \ \ \ \ ( \exists f_i \in F: f'_i = f_i+  d )\wedge(  f_i=f_j\Leftrightarrow i = j) \rbrace$} 
 
-\STATE 
-Set $f \gets Bicriteria(P,k,F')$ \\
-$coreset \gets $\textsc{BalancedPartition}$(P,\varepsilon,cost(f),F')$\\
-$f \gets $ \textsc{$K$-Segmentation$(coreset,k,F')$}
-\STATE $best\_fit \gets $ Compute $f$ such that $cost(P,f)$ is minimized.
-
-\ENDFOR
-
-\RETURN $best\_fit$
-
-
-
-\caption{\textsc{$(1+\varepsilon)$-Aproximation to $(k,m)$ - Segmentation Horizontal}}
-
-\end{algorithmic}
-\end{algorithm}
 
 
 \section{Experimental Results} \label{Experimental Results}
