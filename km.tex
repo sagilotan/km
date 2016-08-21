@@ -119,7 +119,7 @@ For $ \alpha, \beta > 0$, an $(\alpha, \beta)-approximation$ for the $(k,m)-segm
 
 \end{definition}
 \begin{definition}[$(\alpha,m)$-centroid-set]
-For $ \alpha > 0$ ,integer $m>0$ and set $P$, an $\alpha$-$centroid$-$set$ of $P$ is a set of points  
+For $ \alpha > 0$ ,integer $m>0$ and set $P$, an $\alpha$-$centroid$-$set$ of $P$ is a set of points that contain a subset $C$ so that : \\ $cost(C,P)\leq (1+\varepsilon)*cost(OPT$-$centroid$-$set,P)$ 
 
 \end{definition}
 \newtheorem{theorem}{Theorem}
@@ -156,14 +156,10 @@ $f \gets $ \textsc{$K$-Segmentation$(P,k,g)$}
 \begin{algorithmic}
 \STATE \textbf{Input:} A set $P = \lbrace(1,p_1),...,(n,p_n)\rbrace$ in $ \mathbb{R}^{d+1}$
 and paer of integers $k\geq m\geq1$
-\STATE \textbf{Output:} A set F of centers to the  $2$-approximation of the $(k,m)$-horizontal segment of $P$.
+\STATE \textbf{Output:} A $2$-approximation of the cost of the $(k,m)$-horizontal segment of $P$.
  
 \FOR {$\lbrace F \subset P\   \mid\  \vert F\vert = m \rbrace$} 
-
-\STATE 
-Set $f \gets Bicriteria(P,k,F)$ \\
-$coreset \gets $\textsc{BalancedPartition}$(P,\varepsilon,cost(f),F)$\\
-\STATE $best\_fit \gets $ Compute $F$ such that \\$cost(P,$\textsc{$K$-Segmentation$(coreset,k,F)$}$)$ is minimized.
+\STATE $best\_fit \gets $ Compute a minimized\\ \ \ \  $cost(P,$\textsc{$K$-Segmentation$(coreset,k,F)$}$)$.
 
 \ENDFOR
 
@@ -171,15 +167,29 @@ $coreset \gets $\textsc{BalancedPartition}$(P,\varepsilon,cost(f),F)$\\
 
 
 
-\caption{\textsc{$2$-Aproximation to $(k,m)$ - Segmentation Horizontal}}
+\caption{\textsc{$2$-Aproximation to $(k,m)$ - Segmentation Horizontal cost}}
+
+
 
 \end{algorithmic}
 \end{algorithm}
 \begin{algorithm}
 \begin{algorithmic}
-\STATE \textbf{Input:} A set $P\subseteq \mathbb{R}^{d+1}$
-and two vectors $p_1,p_2 \in \mathbb{R}^d$
-\STATE \textbf{Output:} An $2$-approximation to the $(k,m)$-segment mean of P when $m=2$.
+\STATE \textbf{Input:} A set $P$ of points, an integer $m>0$ and an error parameter $\varepsilon\in (0,1)$. 
+\STATE \textbf{Output:} a set G such that $(1+\varepsilon)*cost(Centroid$-$Set$-$of$-$P,P) \leq cost(G,P)$.
+
+Set $L\gets \lbrace l\ \vert\ l \in \mathbb{R}^{d}     \rbrace$
+
+\caption{\textsc{$(\varepsilon,m)$-Centroid-Set}}
+
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\begin{algorithmic}
+\STATE \textbf{Input:} A set $P$ of points and a set $G$ of centers. 
+\STATE \textbf{Output:} the competitable center $g$ in $G$ to the set $P$.
 \IF {$cost(g_1,P) < cost(g_2,P))$}
 \RETURN $g_1$
 \ELSE
@@ -191,10 +201,9 @@ and two vectors $p_1,p_2 \in \mathbb{R}^d$
 \end{algorithmic}
 \end{algorithm}
 \newtheorem{A}{Theorem}
-\begin{theorem}[solution cost]
-This algorithm that we present will give a $f'$ that 
-$cost(P,f')\leq (2+\varepsilon)*cost(P,f)$
-\\
+\begin{theorem}[\textsc{Algoritem 3} solution cost]
+Algorithm 3 will give a 
+$(2+\varepsilon)$-approximation to $cost_{opt}$
 
 
 \end{theorem}
