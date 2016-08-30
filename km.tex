@@ -23,7 +23,7 @@
        \affaddr{Haifa,Israel}\\
        \email{sagi.lotan@gmail.com}
 % 5th. author
-\alignauthor Dr. Feldman Dan\\
+\alignauthor Feldman Dan\\
        \affaddr{Robotic and Big Data Rab}\\
        \affaddr{Uoniversity of Haifa}\\
        \affaddr{Haifa,Israel}\\
@@ -59,10 +59,9 @@ matically; An example for this are scenes of the audience and the field in a soc
 This motivates the following problem definition.
 
 \newdef{definition}{Definition}
-\begin{definition}[$(k,m)$-segment mean]
-A $set\ P\ in\ \mathbb{R}^{d+1} is\ a$ signal\\ 
-$if\ P = \lbrace(1, p_1),(2, p_2),...,(n, p_n)\rbrace\ where\ p_i\in\mathbb{R}^d$ 
-$is\ a\ point\ at\ time\ index\ i\ for\ evrey\\
+\begin{definition} $(k,m)$-segment mean.\\
+A $set\ P\ in\ \mathbb{R}^{d+1} is\ a$ signal  
+$if\ P = \lbrace(1, p_1),(2, p_2),...,(n, p_n)\rbrace$ $where\ p_i\in\mathbb{R}^d is\ a\ point\ at\ time\ index\ i\ for\ evrey\ 
 i=[n]=\lbrace1,...,n\rbrace.$
 $For\ an\ integers\ k\geq m\geq1,$
 $a\ (k,m)-segmant\ is\ a\ k$-$picewise\ linear\ function:$
@@ -130,11 +129,11 @@ Let $P=\lbrace(1, p_1),...,(k, p_k)\rbrace$. Then an $(\alpha,\beta)$-approximat
 \begin{algorithm}
 \begin{algorithmic}
 \STATE \textbf{Input:} A set $P = \lbrace(1,p_1),...,(n,p_n)\rbrace$ in $ \mathbb{R}^{d+1}$
-, paer of integers $k\geq m\geq1$
+, pair of integers $k\geq m\geq1$
 and a set $F$ in size $m$.
 \STATE \textbf{Output:}  $(1+\varepsilon)$-approximation to the $(k,m)$-horizontal segment of $P$.
 
-Set $G\gets \varepsilon$-$centroidset(P)$
+Set $G\gets \varepsilon$-$centroidset(P)$;\tcc*{See Algorithm~\ref{algthree}}
 \FOR { evrey subset $g$ of $G$} 
 \STATE 
 $f \gets $ \textsc{$K$-Segmentation$(P,k,g)$}
@@ -144,9 +143,7 @@ $f \gets $ \textsc{$K$-Segmentation$(P,k,g)$}
 
 \RETURN $best\_fit$
 
-
-
-\caption{\textsc{$(1+\varepsilon)$-Aproximation to $(k,m)$ - Segmentation Horizontal}}
+\caption{\textsc{Approx-Horizontal$(P,k,m,\varepsilon)$}}
 
 \end{algorithmic}
 \end{algorithm}
@@ -175,6 +172,7 @@ and paer of integers $k\geq m\geq1$
 \end{algorithm}
 \begin{algorithm}
 \begin{algorithmic}
+\label{algthree}
 \STATE \textbf{Input:} A set $P$ of points, an integer $m>0$ and an error parameter $\varepsilon\in (0,1)$. 
 \STATE \textbf{Output:} a set G such that $(1+\varepsilon)*cost(Centroid$-$Set$-$of$-$P,P) \leq cost(G,P)$.
 
